@@ -9,10 +9,7 @@ class Extrato:
 
         for transacao in self.transacoes:
             print(f"{transacao[0]:15s} {transacao[1]:10.2f} {transacao[2].strftime("%d/%m/%Y %H:%M:%S")}")
-            print("Saldo da conta: {conta.saldo}.\n")
+        
+        print("Saldo da conta: {conta.saldo}.\n")
 
-        """print(f"\n{32*'='} Extrato da conta {32*'='}".upper())
-        print(f"Cliente: {conta.cliente}")
-        print(f"Numero da conta: {conta.numero}")
-        print(f"Saldo atual: R${conta.saldo}\n")"""
-
+        
