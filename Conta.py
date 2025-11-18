@@ -1,4 +1,4 @@
-from classes.Extrato import Extrato
+from Extrato import Extrato
 import datetime
 
 class Conta:
@@ -13,7 +13,7 @@ class Conta:
 
     def depositar(self, valor):
         self.saldo += valor        # ou poderia ser também self.saldo = self.saldo + valor
-        print(f"\nDepósito de R${valor} realizado com sucesso.")
+        print(f"\nDepósito de R${valor} realizado com sucesso em {self.data_abertura}.")
         print(f"Saldo atual é de: R${self.saldo}")
 
     
@@ -24,17 +24,18 @@ class Conta:
             return False
         else:
             self.saldo -= valor
-            print(f"\nSaque de R${valor} efetuado com sucesso.")
+            print(f"\nSaque de R${valor} efetuado com sucesso em {self.data_abertura}.")
             print(f"Saldo atual é de: R${self.saldo}")
             print(f"\n{30*"="} RETIRE SEU DINHEIRO! {30*"="}\n")      # Mensagem estilizada para o caixa eletrônico
             return True
 
 
     def gerar_saldo(self):
-        print(f"\n{32*"="} saldo da conta {32*"="}".upper())
+        print(f"{32*"="} saldo da conta {32*"="}".upper())
         print(f"Cliente: {self.cliente}")
         print(f"Numero da conta: {self.numero}")
-        print(f"saldo atual: R${self.saldo}\n")
+        print(f"saldo atual: R${self.saldo}")
+        return "\n"
 
 
     def transferir_saldo(self, conta_destino, valor):
@@ -43,42 +44,10 @@ class Conta:
         else:
             conta_destino.saldo_transferido(valor)
             self.saldo -= valor
+        return f"Transferencia de R${valor} para {conta_destino.cliente} realizado com sucesso em {self.data_abertura}.\n"
             
             
     def saldo_transferido(self, valor):     # Metodo para receber o valor transferido
-        self.saldo += valor        # ou poderia ser também self.saldo = self.saldo + valor
-        return f"\nTransferencia de R${valor} para {self.cliente} realizado com sucesso."
+        self.saldo += valor        # ou poderia ser também self.saldo = self.saldo + valor   
         #print(f"Saldo atual é de: R${self.saldo}\n")
 
-
-
-############################## TESTE DA CLASSE CONTA ###############################
-conta1 = Conta("João Silva", 67890, 5000)
-conta2 = Conta("Maria Oliveira", 54321, 15000)
-
-print(f"\nNome do(a) cliente: {conta1.cliente}")
-print(f"Numero da conta: {conta1.numero}")
-print(f"Saldo atual: {conta1.saldo}")
-print(f"Data de abertura da conta: {conta1.data_abertura}\n\n")
-
-
-print(f"Nome do(a) cliente: {conta2.cliente}")
-print(f"Numero da conta: {conta2.numero}")
-print(f"Saldo atual: {conta2.saldo}")
-print(f"Data de abertura da conta: {conta2.data_abertura}\n\n")
-
-#c1.depositar(900)
-
-#c1.sacar(5000)
-
-#c1.gerar_saldo()
-
-"""if conta1 == conta2:
-    print("\nVocê não pode transferir para essa mesma conta.\n".upper())
-else:
-    print("\nTransferencia permitida.\n\n")"""
-
-print(conta1.transferir_saldo(conta2, 200000))
-
-print(conta2.gerar_saldo())
-print(conta1.gerar_saldo())
