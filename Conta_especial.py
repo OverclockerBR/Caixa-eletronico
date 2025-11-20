@@ -16,32 +16,20 @@ class Conta_especial(Conta):
             self.saldo -= valor
             if self.saldo < 0:
                 self.limite += valor
-            self.extrato.transacoes.append(["Saque de R$", valor, datetime.datetime.today().strftime("%d/%m/%Y %H:%M:%S")])
+            self.extrato.transacoes.append(["Saque", valor, datetime.datetime.today()])
             return super().sacar(valor)
     
 
     def transferir_saldo(self, conta_destino, valor):
-        if (self.saldo + self.limite) <  valor:
-            return f"Saldo atual + limite são insuficientes para essa transferencia.\n".upper()
-        else:
-            conta_destino.saldo_transferido(valor)
-            self.saldo -= valor
-
-            if self.saldo < 0:
-                self.saldo = self.limite + self.saldo
-            self.extrato.transacoes.append(["Transferencia de R$", valor, datetime.datetime.today().strftime("%d/%m/%Y %H:%M:%S")])
-        return super().transferir_saldo(conta_destino, valor)
-
-
-    def transferir_especial(self, conta_destino, valor):
-        if (self.saldo + self.limite) <  valor:
-            return f"Saldo atual + limite são insuficientes para essa transferencia.\n".upper()
+        if (self.saldo + self.limite) < valor:
+            print(f"Saldo atual + limite são insuficientes para essa transferencia.\n").upper()
         else:
             conta_destino.saldo_transferido(valor)
             self.saldo -= valor
 
             if self.saldo < 0:
                 self.limite += self.saldo
-                print("Você entrou no cheque especial.\n")
-                print(f"Limite especial restante: R${self.limite}\n".upper())
-        return f"Transferencia de R${valor} para {conta_destino.cliente} realizado com sucesso em {self.data_abertura}.\n"
+            self.extrato.transacoes.append(["Transf. Enviada", -valor, datetime.datetime.today()])
+            #print("Você entrou no cheque especial.\n")
+            """print(f"Limite especial restante: R${self.limite}\n".upper())"""
+        #return super().transferir_saldo(conta_destino, valor)
